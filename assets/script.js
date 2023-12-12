@@ -23,20 +23,38 @@ fetch(URL)
 .then(function(response){
     return response.json();
 }).then(function(data) {
-    console.log(data);
+    //console.log(data);
     displayCurrentWeather (data);
-    todaysdate();
-    //document.getElementById("citymainheader").innerText = data[1].name;
+    updatedate ();
+
 })
 })
 
-//Display date
 
-function todaysdate (){
-var todaysdate = dayjs().format('LL');
-console.log(todaysdate);
-document.getElementById("todaysdate").innerText = todaysdate;
+function updatedate() {
+var currentDate = dayjs();
+var formattedDate = currentDate.format('DD-MM-YYYY');
+console.log(formattedDate);
+document.getElementById("todaysdate").innerHTML = formattedDate;
 }
+
+// //Display date
+// function updatedate() {
+// var today = dayjs('DD-MM-YYYY');
+// // var formattedDate = today.format('DD-MM-YYYY');
+// console.log(today.format('DD-MM-YYYY'));
+// document.getElementById("todaysdate").innerText = dayjs('DD-MM-YYYY')
+// }
+
+// const currentDate = dayjs();
+// const formattedDate = currentDate.format('YYYY-MM-DD HH:mm:ss');
+// console.log(formattedDate);
+
+// function todaysdate (){
+// var todaysdate = dayjs().format('LL');
+// console.log(todaysdate);
+// document.getElementById("todaysdate").innerText = todaysdate;
+// }
 
 //Add city name
 function displayCurrentWeather (data) {
