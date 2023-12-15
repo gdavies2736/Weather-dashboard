@@ -25,7 +25,7 @@ fetch(URL)
 }).then(function(data) {
     //console.log(data);
     displayCurrentWeather (data);
-    updatedate ();
+    updatedate();
 
 })
 })
@@ -34,29 +34,12 @@ fetch(URL)
 function updatedate() {
 var currentDate = dayjs();
 var formattedDate = currentDate.format('DD-MM-YYYY');
-console.log(formattedDate);
+//console.log(formattedDate);
 document.getElementById("todaysdate").innerHTML = formattedDate;
 }
 
-// //Display date
-// function updatedate() {
-// var today = dayjs('DD-MM-YYYY');
-// // var formattedDate = today.format('DD-MM-YYYY');
-// console.log(today.format('DD-MM-YYYY'));
-// document.getElementById("todaysdate").innerText = dayjs('DD-MM-YYYY')
-// }
 
-// const currentDate = dayjs();
-// const formattedDate = currentDate.format('YYYY-MM-DD HH:mm:ss');
-// console.log(formattedDate);
-
-// function todaysdate (){
-// var todaysdate = dayjs().format('LL');
-// console.log(todaysdate);
-// document.getElementById("todaysdate").innerText = todaysdate;
-// }
-
-//Add city name
+//Display current weather for searched location
 function displayCurrentWeather (data) {
 var cityName = data.name;
 document.getElementById("citymainheader").innerText = cityName;
@@ -70,17 +53,10 @@ document.getElementById("humidity").innerText = "Humidity: " + humidity + "%";
 
 
 
-//Add current weather to main weather section on page
-
-//document.getElementById("citymainheader").innerText = data.main
-//var citymain = 
-
-
 //request 5 day forecast
 //In order to get 5 day forecast:
 //1. Need to use Geocoder API to convert city to exact geographical coordinates
 //2.Use the co-ordinates to create new api request for 5 day forecast
-
 
 //to convert city to exact geographical coordinates
 //http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid={API key}
@@ -97,35 +73,79 @@ fetch(latandlongrequestURL)
     //console.log(data);
     //console.log(data[0].lat);
     var latitude = data[0].lat;
-    console.log(latitude);
+    //console.log(latitude);
    var longitude = data[0].lon;
-   console.log(longitude);
+   //console.log(longitude);
    var fivedayweatherURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey;
    fetch(fivedayweatherURL)
    .then(function(response){
     return response.json();
 }).then (function(data){
     console.log(data);
+    displayFiveDay(data);
 })
 })
 })
 
 
-//api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
+function displayFiveDay(data) {
+var dayOneDate = dayjs();
+formattedDate = dayOneDate.format('DD-MM-YYYY');
+document.getElementById("dayOne").innerText = formattedDate;
+var dayTwoDate = dayOneDate.add(1,"day").format('DD-MM-YYYY');
+document.getElementById("dayTwo").innerText = dayTwoDate;
+var dayThreeDate = dayOneDate.add(2,"day").format('DD-MM-YYYY');
+document.getElementById("dayThree").innerText = dayThreeDate;
+var dayFourDate = dayOneDate.add(3,"day").format('DD-MM-YYYY');
+document.getElementById("dayFour").innerText = dayFourDate;
+var dayFiveDate = dayOneDate.add(4,"day").format('DD-MM-YYYY');
+document.getElementById("dayFive").innerText = dayFiveDate;
+
+var dayOneTemp = data.list[0].main.temp;
+console.log(dayOneTemp);
+document.getElementById("dayOneTemp").innerText = "Temperature: " + dayOneTemp + "° Celsius";
+
+var dayOneTemp = data.list[0].main.temp;
+console.log(dayOneTemp)
+document.getElementById("dayOneTemp").innerText = "Temperature: " + dayOneTemp + "° Celsius";
+// var dayOneWind =
+// var dayOneHumidity
+// document.getElementById("temperature").innerText = "Temperature: " + temperature + "° Celsius";
+// var wind = data.wind.speed;
+// document.getElementById("wind").innerText = "Wind: " + wind + " kmph";
+// var humidity = data.main.humidity;
+// document.getElementById("humidity").innerText = "Humidity: " + humidity + "%";
+// }
 
 
 
-//need to use Geocoder API to convert city to exact geographical coordinates
+// for (let i = 0; 1<=5; i++) {
+// var dayTwoDate = dayjs().add(i, 'day');
+// var formattedDate = nextDay.format('DD-MM-YYYY');
+// }
+// document.getElementById("day" + i).innerText = formattedDate;
 
-//http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid={API key}
+// var dayOneDate = dayjs();
+// var formattedDate = dayOneDate.format('DD-MM-YYYY');
+//     document.getElementById("dayOne").innerText = formattedDate;
 
-//api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
-
-
-
-
+ }
 
 
+
+
+
+// function displayCurrentWeather (data) {
+//     var cityName = data.name;
+//     document.getElementById("citymainheader").innerText = cityName;
+//     var temperature = data.main.temp;
+//     document.getElementById("temperature").innerText = "Temperature: " + temperature + "° Celsius";
+//     var wind = data.wind.speed;
+//     document.getElementById("wind").innerText = "Wind: " + wind + " kmph";
+//     var humidity = data.main.humidity;
+//     document.getElementById("humidity").innerText = "Humidity: " + humidity + "%";
+//     }
+    
 
 
 
