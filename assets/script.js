@@ -1,6 +1,5 @@
 //Define the API URL
 //var apiUrl = https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
-
 //My API key for OpenWeather API
 var apiKey = "2bbc1080b504d6f4e2cad6a27f5acc94"
 
@@ -14,22 +13,22 @@ var apiKey = "2bbc1080b504d6f4e2cad6a27f5acc94"
 //use city variable in api request
 //request data using api + city (convert units to metric in request)
 
-document.getElementById("search-button").addEventListener("click",function(event){
-    event.preventDefault();
-    document.getElementById("search-input").value;
-    var city = document.getElementById("search-input").value;
-    var URL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=metric";
-fetch(URL)
-.then(function(response){
-    return response.json();
-}).then(function(data) {
-    //console.log(data);
-    displayCurrentWeather (data);
-    updatedate();
+// document.getElementById("search-button").addEventListener("click",function(event){
+//     event.preventDefault();
+//     document.getElementById("search-input").value;
+//     var city = document.getElementById("search-input").value;
+//     var URL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=metric";
+// fetch(URL)
+// .then(function(response){
+//     return response.json();
+// }).then(function(data) {
+//     //console.log(data);
+//     displayCurrentWeather (data);
+//     updatedate();
 
-})
-})
-
+// })
+// })
+displaySearches();
 
 function updatedate() {
 var currentDate = dayjs();
@@ -60,9 +59,24 @@ document.getElementById("humidity").innerText = "Humidity: " + humidity + "%";
 
 //to convert city to exact geographical coordinates
 //http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid={API key}
+function searchWeather (previouscity) {
+    var city = previouscity || document.getElementById("search-input").value;
+    var searches = JSON.parse(localStorage.getItem("searches")) || [];
+    if (!searches.includes(city)) {
+     searches.push(city);
+     localStorage.setItem("searches", JSON.stringify(searches));   
+    }
+    displaySearches ();
+    var URL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=metric";
+fetch(URL)
+.then(function(response){
+    return response.json();
+}).then(function(data) {
+    //console.log(data);
+    displayCurrentWeather (data);
+    updatedate();
 
-document.getElementById("search-button").addEventListener("click",function(event){
-    event.preventDefault();
+})
     document.getElementById("search-input").value;
     var city = document.getElementById("search-input").value;
 var latandlongrequestURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5" + "&appid=" + apiKey;
@@ -76,16 +90,35 @@ fetch(latandlongrequestURL)
     //console.log(latitude);
    var longitude = data[0].lon;
    //console.log(longitude);
-   var fivedayweatherURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey;
+   var fivedayweatherURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey + "&units=metric";
    fetch(fivedayweatherURL)
    .then(function(response){
     return response.json();
 }).then (function(data){
-    console.log(data);
+    //console.log(data);
     displayFiveDay(data);
 })
+})  
+}
+
+document.getElementById("search-button").addEventListener("click",function(event){
+    event.preventDefault();
+      searchWeather();
 })
-})
+
+function displaySearches () {
+    var searches = JSON.parse(localStorage.getItem("searches")) || [];
+     document.getElementById("previousSearches").innerHTML = "";
+     for (let index = 0; index < searches.length; index++) {
+        var element = searches[index];
+      var item = document.createElement("button");
+      item.addEventListener("click", function(event){
+        searchWeather (event.target.innerText);
+      } )
+      item.innerText = element;
+      document.getElementById("previousSearches").appendChild(item);
+     }
+}
 
 
 function displayFiveDay(data) {
@@ -101,13 +134,33 @@ document.getElementById("dayFour").innerText = dayFourDate;
 var dayFiveDate = dayOneDate.add(4,"day").format('DD-MM-YYYY');
 document.getElementById("dayFive").innerText = dayFiveDate;
 
-var dayOneTemp = data.list[0].main.temp;
-console.log(dayOneTemp);
-document.getElementById("dayOneTemp").innerText = "Temperature: " + dayOneTemp + "° Celsius";
+//var to target HTML 1 at a time, counting variable
+var i = 1;
+for (let index = 7; index < data.list.length; index+=8) {
+    var day = data.list[index];
+document.getElementById("day" + i + "Temp").innerText = "Temperature: " + day.main.temp + "° Celsius";
+    console.log(day);
+document.getElementById("day" + i + "Wind").innerText = "Wind: " + day.wind.speed + " kmph";
+document.getElementById("day" + i + "Humidity").innerText = "Humidity: " + day.main.humidity + "%";
+    i++;
+    
+}
 
-var dayOneTemp = data.list[0].main.temp;
-console.log(dayOneTemp)
-document.getElementById("dayOneTemp").innerText = "Temperature: " + dayOneTemp + "° Celsius";
+//var previousSearch = document.getElementById("form-input weather-search").value;
+
+
+
+
+// var dayOneTemp = data.list[0].main.temp;
+// console.log(dayOneTemp);
+// document.getElementById("dayOneTemp").innerText = "Temperature: " + dayOneTemp + "° Celsius";
+
+// var dayOneTemp = data.list[0].main.temp;
+// console.log(dayOneTemp)
+// document.getElementById("dayOneTemp").innerText = "Temperature: " + dayOneTemp + "° Celsius";
+
+
+
 // var dayOneWind =
 // var dayOneHumidity
 // document.getElementById("temperature").innerText = "Temperature: " + temperature + "° Celsius";
