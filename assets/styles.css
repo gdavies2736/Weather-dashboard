@@ -48,8 +48,8 @@ button {
 }
 
 .form-input {
-  
     color: black;
+    margin-right: 8px;
 }
 
 .weather-data {
@@ -84,6 +84,8 @@ li {
     padding: 12px;
     border-width: 2px;
 }
+
+
 
 
 

@@ -78,8 +78,9 @@ fetch(URL)
 
 })
     document.getElementById("search-input").value;
-    var city = document.getElementById("search-input").value;
+    //var city = document.getElementById("search-input").value;
 var latandlongrequestURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5" + "&appid=" + apiKey;
+console.log(latandlongrequestURL)
 fetch(latandlongrequestURL)
 .then(function(response){
     return response.json();
@@ -108,15 +109,16 @@ document.getElementById("search-button").addEventListener("click",function(event
 
 function displaySearches () {
     var searches = JSON.parse(localStorage.getItem("searches")) || [];
-     document.getElementById("previousSearches").innerHTML = "";
+     document.getElementById("history").innerHTML = "";
      for (let index = 0; index < searches.length; index++) {
         var element = searches[index];
       var item = document.createElement("button");
+      item.innerText = element;
       item.addEventListener("click", function(event){
         searchWeather (event.target.innerText);
       } )
-      item.innerText = element;
-      document.getElementById("previousSearches").appendChild(item);
+      //item.innerText = element;
+      document.getElementById("history").appendChild(item);
      }
 }
 
