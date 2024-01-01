@@ -31,6 +31,8 @@ Here is a screenshot showing how the user has searched for the city Dublin and h
 
 I found this challenge required alot of trial and error to try and get things to work correctly. At times this was a slow process as I needed to read up on information online to try and understand why something wasn't working or whether there was an alternative way to do something. In particular, in order to get the 5-day forecast, I needed to use the geocoder API to convert the city to exact geographical co-ordinates in order to create a new api request for the 5-day forecast.
 
+In addition to this, I needed to revist Bootstrap in order to understand how to make my weather dashboard look similar to the one in the project specifications. 
+
 **3.Usage**
 
 This project may be useful for those learning the following technologies:
