@@ -72,6 +72,22 @@ button {
     justify-content:flex-start;
 }
 
+.fa-wind {
+    font-size: 32px;
+    padding-left: 16px;
+}
+
+.fa-snowflake {
+    font-size: 24px;
+    padding-left: 16px;
+}
+
+.fa-cloud {
+    font-size: 24px;
+    padding-left: 16px;
+}
+
+
 ul {
     list-style-type: none;
 }
