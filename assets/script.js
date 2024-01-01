@@ -13,21 +13,6 @@ var apiKey = "2bbc1080b504d6f4e2cad6a27f5acc94"
 //use city variable in api request
 //request data using api + city (convert units to metric in request)
 
-// document.getElementById("search-button").addEventListener("click",function(event){
-//     event.preventDefault();
-//     document.getElementById("search-input").value;
-//     var city = document.getElementById("search-input").value;
-//     var URL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=metric";
-// fetch(URL)
-// .then(function(response){
-//     return response.json();
-// }).then(function(data) {
-//     //console.log(data);
-//     displayCurrentWeather (data);
-//     updatedate();
-
-// })
-// })
 displaySearches();
 
 function updatedate() {
@@ -56,8 +41,6 @@ document.getElementById("humidity").innerText = "Humidity: " + humidity + "%";
 //In order to get 5 day forecast:
 //1. Need to use Geocoder API to convert city to exact geographical coordinates
 //2.Use the co-ordinates to create new api request for 5 day forecast
-
-//to convert city to exact geographical coordinates
 //http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid={API key}
 function searchWeather (previouscity) {
     var city = previouscity || document.getElementById("search-input").value;
@@ -78,7 +61,6 @@ fetch(URL)
 
 })
     document.getElementById("search-input").value;
-    //var city = document.getElementById("search-input").value;
 var latandlongrequestURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5" + "&appid=" + apiKey;
 console.log(latandlongrequestURL)
 fetch(latandlongrequestURL)
@@ -117,7 +99,6 @@ function displaySearches () {
       item.addEventListener("click", function(event){
         searchWeather (event.target.innerText);
       } )
-      //item.innerText = element;
       document.getElementById("history").appendChild(item);
      }
 }
@@ -147,60 +128,8 @@ document.getElementById("day" + i + "Humidity").innerText = "Humidity: " + day.m
     i++;
     
 }
-
-//var previousSearch = document.getElementById("form-input weather-search").value;
-
-
-
-
-// var dayOneTemp = data.list[0].main.temp;
-// console.log(dayOneTemp);
-// document.getElementById("dayOneTemp").innerText = "Temperature: " + dayOneTemp + "° Celsius";
-
-// var dayOneTemp = data.list[0].main.temp;
-// console.log(dayOneTemp)
-// document.getElementById("dayOneTemp").innerText = "Temperature: " + dayOneTemp + "° Celsius";
-
-
-
-// var dayOneWind =
-// var dayOneHumidity
-// document.getElementById("temperature").innerText = "Temperature: " + temperature + "° Celsius";
-// var wind = data.wind.speed;
-// document.getElementById("wind").innerText = "Wind: " + wind + " kmph";
-// var humidity = data.main.humidity;
-// document.getElementById("humidity").innerText = "Humidity: " + humidity + "%";
-// }
-
-
-
-// for (let i = 0; 1<=5; i++) {
-// var dayTwoDate = dayjs().add(i, 'day');
-// var formattedDate = nextDay.format('DD-MM-YYYY');
-// }
-// document.getElementById("day" + i).innerText = formattedDate;
-
-// var dayOneDate = dayjs();
-// var formattedDate = dayOneDate.format('DD-MM-YYYY');
-//     document.getElementById("dayOne").innerText = formattedDate;
-
  }
 
-
-
-
-
-// function displayCurrentWeather (data) {
-//     var cityName = data.name;
-//     document.getElementById("citymainheader").innerText = cityName;
-//     var temperature = data.main.temp;
-//     document.getElementById("temperature").innerText = "Temperature: " + temperature + "° Celsius";
-//     var wind = data.wind.speed;
-//     document.getElementById("wind").innerText = "Wind: " + wind + " kmph";
-//     var humidity = data.main.humidity;
-//     document.getElementById("humidity").innerText = "Humidity: " + humidity + "%";
-//     }
-    
 
 
 
