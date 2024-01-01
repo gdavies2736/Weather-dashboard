@@ -9,7 +9,7 @@ Table of Contents
 5. Credits 
 6. Licence 
 
-1. Description
+**1. Description**
 
 The purpose of this project was to create a weather dashboard application that allows the user to search for a city and find out about the weather. When the user searches for a city they will see both the current weather for that city and also the 5-day forecast. 
  
