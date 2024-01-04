@@ -61,7 +61,7 @@ fetch(URL)
 
 })
     document.getElementById("search-input").value;
-var latandlongrequestURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5" + "&appid=" + apiKey;
+var latandlongrequestURL = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5" + "&appid=" + apiKey;
 console.log(latandlongrequestURL)
 fetch(latandlongrequestURL)
 .then(function(response){
@@ -73,7 +73,7 @@ fetch(latandlongrequestURL)
     //console.log(latitude);
    var longitude = data[0].lon;
    //console.log(longitude);
-   var fivedayweatherURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey + "&units=metric";
+   var fivedayweatherURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey + "&units=metric";
    fetch(fivedayweatherURL)
    .then(function(response){
     return response.json();
